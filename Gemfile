@@ -13,6 +13,7 @@ gem 'tux'
 gem 'instagram'
 
 gem 'pg'
+gem 'heroku'
 
 group :development, :test do
   gem 'pry'
