@@ -1,6 +1,6 @@
 <!-- Navbar fixed to top of screen -->
-<nav class="navbar navbar-default navbar-inverse" role="navigation">
-<div class="container-fluid">
+<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container">
 
   <!-- Logo and toggle get grouped for better mobile display -->
   <div class="navbar-header">
@@ -30,8 +30,7 @@
         <ul id="login-dp" class="dropdown-menu">
         <li>
           <div class="row">
-				    <div class="col-md-12">
-						  <form class="form" role="form" method="post" action="TODO" accept-charset="UTF-8" id="login-nav">
+						  <form class="login-form" role="form" method="post" action="TODO" accept-charset="UTF-8" id="login-nav">
 							  <div class="form-group">
 								  <label class="sr-only" for="exampleInputEmail2">Email address</label>
 									<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
@@ -50,11 +49,10 @@
 							  </label>
 						    </div>
 						  </form>
-						</div>
-					  <div class="bottom text-center">
-						  New here ? <a href="#"><b>Join Us</b></a>
-					  </div>
-				  </div>
+          </div>
+					<div class="bottom text-center">
+					  New here ? <a href="#"><b>Join Us</b></a>
+					</div>
         </li>
         </ul>
       </li>
@@ -64,29 +62,96 @@
 </div><!-- /.container-fluid -->
 </nav>
 
-<div class="container-fluid">
+<div class="container">
 
+<!-- Top rated images in catagories -->
 <div class="row">
-  <div class="col-md-6">
-	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/140/140/" />
-	</div>
-	<div class="col-md-6">
-	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/140/140/" />
-	</div>
+<div class="card-deck-wrapper">
+  <div class="card-deck">
+    <div class="card col-md-4">
+      <img class="card-img-top" src="http://lorempixel.com/360/360/" alt="Card image cap">
+      <div class="card-block">
+        <h4 class="card-title">Random Category</h4>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card col-md-4">
+      <img class="card-img-top" src="http://lorempixel.com/360/360/" alt="Card image cap">
+      <div class="card-block">
+        <h4 class="card-title">Random Category</h4>
+        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+    <div class="card col-md-4">
+      <img class="card-img-top" src="http://lorempixel.com/360/360/" alt="Card image cap">
+      <div class="card-block">
+        <h4 class="card-title">Random Category</h4>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="row">
-  <div class="col-md-3">
-    <img alt="Bootstrap Image Preview" src="http://lorempixel.com/140/140/" />
+</div>
+
+<!-- Random top rated images in catagories -->
+<div class="row photo-row-sm">
+  <div class="col-md-4">
+    <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
 	</div>
-	<div class="col-md-3">
-	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/140/140/" />
+	<div class="col-md-4">
+	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
 	</div>
-	<div class="col-md-3">
-	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/140/140/" />
+  <div class="col-md-4">
+    <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+    <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+  </div>
+</div>
+<div class="row photo-row-sm">
+  <div class="col-md-4">
+    <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
 	</div>
-	<div class="col-md-3">
-	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/140/140/" />
+	<div class="col-md-4">
+	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
 	</div>
+  <div class="col-md-4">
+    <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+    <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+  </div>
+</div>
+<div class="row photo-row-sm">
+  <div class="col-md-4">
+    <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+	</div>
+	<div class="col-md-4">
+	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+	</div>
+  <div class="col-md-4">
+    <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+    <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+  </div>
+</div>
+<div class="row photo-row-sm">
+  <div class="col-md-4">
+    <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+	</div>
+	<div class="col-md-4">
+	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+	  <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+	</div>
+  <div class="col-md-4">
+    <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+    <img alt="Bootstrap Image Preview" src="http://lorempixel.com/175/175/" />
+  </div>
 </div>
 
 </div>
