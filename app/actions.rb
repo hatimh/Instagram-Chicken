@@ -32,7 +32,7 @@ get '/' do
 end
 
 get "/oauth/connect" do
-  redirect Instagram.authorize_url(:redirect_uri => CALLBACK_URL)
+  redirect Instagram.authorize_url(:scope => "public_content", :redirect_uri => CALLBACK_URL)
 end
 
 get "/oauth/disconnect" do
