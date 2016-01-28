@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-enable :sessions
-
-# get methods #
-get '/' do
-  erb :'/index'
-end
-=======
 # Homepage (Root path)
 require "sinatra"
 require "instagram"
@@ -14,12 +6,13 @@ enable :sessions
 
 CALLBACK_URL = "http://localhost:3000/oauth/callback"
 
-Instagram.configure do |config|
-  config.client_id = "233b809cbca8494b85743f13d81fa9b5"
-  config.client_secret = "87249927d0b04a03af10f7ad0d048075"
-  # For secured endpoints only
-  #config.client_ips = '<Comma separated list of IPs>'
-end
+# Hatim's instagram key
+# Instagram.configure do |config|
+#   config.client_id = "233b809cbca8494b85743f13d81fa9b5"
+#   config.client_secret = "87249927d0b04a03af10f7ad0d048075"
+#   # For secured endpoints only
+#   #config.client_ips = '<Comma separated list of IPs>'
+# end
 
 get "/" do
   erb :index
@@ -171,4 +164,4 @@ get "/limits" do
 
   html
 end
->>>>>>> style
+
