@@ -28,12 +28,12 @@ ActiveRecord::Schema.define(version: 20160128200224) do
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "full_name"
-    t.string   "porfile_picture"
+    t.string   "profile_picture"
     t.string   "bio"
     t.string   "website"
-    t.integer  "instagram_user_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.integer  "instagram_user_id", limit: 8
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
 end
