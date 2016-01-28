@@ -5,6 +5,7 @@ configure do
   end
 
   set :database, {
+
     adapter: "postgresql",
     host: "ec2-107-20-242-191.compute-1.amazonaws.com",
     username: "beuzjgvfqgopaz",
