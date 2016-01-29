@@ -9,7 +9,7 @@
         <% if session[:access_token] == nil %>
           <button onclick="window.location.href='oauth/connect'" class="btn btn-primary"><b>Connect with Instagram</b></button>
         <% else %>
-          <button onclick="window.location.href='oauth/connect'" class="btn btn-primary"  ><b>Log Out</b></button>
+          <button onclick="window.location.href='oauth/disconnect'" class="btn btn-primary"  ><b>Log Out</b></button>
         <% end %>
       </li>
       <li>
