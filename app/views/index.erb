@@ -1,16 +1,15 @@
 <div class="masthead clearfix">
   <div class="container">
     <!-- Logo -->
-    <div class="logo pull-left">
-      <h1>PikzArena</h1>
-    </div>
-
-    <ul class="nav navbar-nav pull-right">
-      <li class="dropdown">
+    <ul class = "nav nav-justified" >
+      <li >
+        <h1 class="logo">PikzArena</h1>        
+      </li>  
+      <li>
         <% if session[:access_token] == nil %>
-          <a href="oauth/connect"><b>Connect with Instagram</b></a>
+          <button onclick="window.location.href='oauth/connect'" class="btn btn-primary"><b>Connect with Instagram</b></button>
         <% else %>
-          <a href="oauth/disconnect"><b>Log Out</b></a>
+          <button onclick="window.location.href='oauth/connect'" class="btn btn-primary"  ><b>Log Out</b></button>
         <% end %>
       </li>
       <li>
@@ -18,7 +17,7 @@
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Look for a tag...">
           </div>
-          <button type="submit" class="btn btn-default">Search</button>
+          <button type="submit" class="btn btn-primary">Search</button>
         </form>
       </li>
     </ul>
