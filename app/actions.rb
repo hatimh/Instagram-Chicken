@@ -7,8 +7,8 @@ enable :sessions
 CALLBACK_URL = "http://localhost:3000/oauth/callback"
 
 Instagram.configure do |config|
-  config.client_id = "202e3d28950043cdad71d42c06b8f0e2"
-  config.client_secret = "27367718da4049b9801986155022e776"
+  config.client_id = "4a9c8bcaff1b4b03901e20bb5777d8bd"
+  config.client_secret = "1b574823e66d41dbbbb2a84b18646ddd"
   config.scope = "public_content likes"
   # For secured endpoints only
   #config.client_ips = '<Comma separated list of IPs>'
@@ -64,6 +64,9 @@ end
 get '/media_like/:id' do
   client = Instagram.client(:access_token => session[:access_token])
   client.like_media("#{params[:id]}")
+  # puts client.inspect
+  # puts "-------"
+  # puts params[:id]
   redirect "/user_recent_media"
 end
 
@@ -151,9 +154,9 @@ get "/tags" do
   html = "<h1>Search for tags, get tag info and get media by tag</h1>"
   tags = client.tag_search('beatit_computer')
   html << "<h2>Tag Name = #{tags[0].name}. Media Count =  #{tags[0].media_count}. </h2><br/><br/>"
-  for media_item in client.tag_recent_media(tags[0].name)
-    html << "<img src='#{media_item.images.thumbnail.url}'>"
-  end
+  pictures = client.tag_recent_media(tags[0].name).sort!{|x,y| y.likes[:count] <=> x.likes[:count]}
+  for media_item in pictures
+    html << "<div style='float:left;'><img src='#{media_item.images.thumbnail.url}'><br/> <a href='/media_like/#{media_item.id}'>Like</a>  <a href='/media_unlike/#{media_item.id}'>Un-Like</a>  <br/>LikesCount=#{media_item.likes[:count]}</div>"  end
   len = client.tag_search(tags[0].name).length
   html << "#{len}"
   html
@@ -164,7 +167,6 @@ get "/limits" do
   html = "<h1/>View API Rate Limit and calls remaining</h1>"
   response = client.utils_raw_response
   html << "Rate Limit = #{response.headers[:x_ratelimit_limit]}.  <br/>Calls Remaining = #{response.headers[:x_ratelimit_remaining]}"
-
   html
 end
 
