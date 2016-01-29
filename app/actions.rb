@@ -15,7 +15,8 @@ Instagram.configure do |config|
 end
 
 get "/" do
-  '<a href="/oauth/connect">Connect with Instagram</a>'
+ '<a href="/oauth/connect">Connect with Instagram</a>'
+  #erb :index
 end
 
 get "/oauth/connect" do
@@ -147,10 +148,19 @@ get "/location_search_4square" do
 end
 
 get "/tags" do
+
   client = Instagram.client(:access_token => session[:access_token])
   html = "<h1>Search for tags, get tag info and get media by tag</h1>"
-  tags = client.tag_search('beatit_computer')
+  tags = client.tag_search('beatdhtshiz')
+  category = []
+  tags.each do |tag|
+    category << tag.name.slice(12, tag.name.length)
+  end 
+
+  puts category.inspect
+
   html << "<h2>Tag Name = #{tags[0].name}. Media Count =  #{tags[0].media_count}. </h2><br/><br/>"
+  
   for media_item in client.tag_recent_media(tags[0].name)
     html << "<img src='#{media_item.images.thumbnail.url}'>"
   end
@@ -170,9 +180,11 @@ end
 
 helpers do
   def create_user(user)
-
-    User.create(username: user.username , full_name: user.full_name , instagram_user_id: user.id.to_i, profile_picture: user.profile_picture , bio: user.bio, website: user.website)
-    @user = User.new
-    puts @user.inspect
+    data_user = User.find_by(instagram_user_id: user.id.to_i)
+    unless user
+      data_user = User.create(username: user.username , full_name: user.full_name , instagram_user_id: user.id.to_i, 
+                  profile_picture: user.profile_picture , bio: user.bio, website: user.website)
+    end 
+    data_user
   end
 end
