@@ -1,16 +1,17 @@
 
 class Picture
 
-  BEAT_HASH_TAG = 'beatit_'
+  BEAT_HASH_TAG = 'beatit _'
 
   attr_accessor :category
   attr_reader :low_resolution_url, :thumbnail_url, :standard_resolution_url, :likes
 
-  def initialize(low_resolution_url, thumbnail_url, standard_resolution_url, likes)
+  def initialize(low_resolution_url, thumbnail_url, standard_resolution_url, likes, user_id)
     @low_resolution_url = low_resolution_url
     @thumbnail_url = thumbnail_url
     @standard_resolution_url = standard_resolution_url
     @likes = likes
+    @user_id = user_id
   end
 
   def self.get_categories_hashtag(client)
@@ -26,12 +27,11 @@ class Picture
   end 
 
   def self.get_all_category_pictures_with_more_likes(client)
-    hashtags = Picture.get_categorys_hashtag(client)
+    hashtags = Picture.get_categories_hashtag(client)
     pictures = []
     hashtags.each do |hashtag|
       picture = get_picture_with_more_likes(client, hashtag)
       picture.category = hashtag
-      picture.likes = 
       pictures << picture
     end 
     pictures
@@ -43,7 +43,9 @@ class Picture
       picture = Picture.new(instagran_pictures[0].images.low_resolution.url, 
                             instagran_pictures[0].images.thumbnail.url, 
                             instagran_pictures[0].images.standard_resolution.url,
-                            instagran_pictures[0].likes)
+                            instagran_pictures[0].likes,
+                            instagran_pictures[0].user.id)
+      picture.category = hashtag
     end
     picture
   end

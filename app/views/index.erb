@@ -53,8 +53,10 @@
     tags = client.tag_search('beatit_computer')
     pictures = client.tag_recent_media(tags[0].name).sort!{|x,y| y.likes[:count] <=> x.likes[:count]}
 
-    picture = Picture.get_picture_with_more_likes(client, "beatit_computer")
-    p picture.inspect
+    # picture = Picture.get_picture_with_more_likes(client, "beatit_computer")
+    # p picture.inspect
+     user = Picture.get_all_category_pictures_with_more_likes(client)
+     pp user
     %>
     <% for media_item in pictures  %>
 
