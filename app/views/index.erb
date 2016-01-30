@@ -2,6 +2,7 @@
 <div class="masthead clearfix">
   <div class="container">
     <!-- Logo -->
+
     <ul class = "nav nav-justified" >
       <li >
         <h1 class="logo">PikzArena</h1>        
@@ -12,15 +13,26 @@
         <% else %>
           <button onclick="window.location.href='oauth/disconnect'" class="btn btn-primary"  ><b>Log Out</b></button>
         <% end %>
+    <ul class = "nav-justified" >
+      <li >
+        <h1 class="logo">PikzArena</h1>        
       </li>
       <li>
         <form class="navbar-form" role="search">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Look for a tag...">
+            <input type="text" class="form-control" placeholder="Enter your tag here...">
           </div>
           <button type="submit" class="btn btn-primary">Search</button>
         </form>
+      </li>  
+      <li>
+        <% if session[:access_token] == nil %>
+          <button onclick="window.location.href='oauth/connect'" class="btn btn-primary"><b>Connect with Instagram</b></button>
+        <% else %>
+          <button onclick="window.location.href='oauth/disconnect'" class="btn btn-primary"  ><b>Log Out</b></button>
+        <% end %>
       </li>
+      
     </ul>
   </div>
 </div> <!-- mastheadflix -->
@@ -28,105 +40,74 @@
 <!-- image with hover captions -->
 <% @image =
     '<div class = "thumbnail" >
-        <img class="card-img-top" src="https://scontent.cdninstagram.com/t51.2885-15/e35/12519164_1501120373529127_1845733710_n.jpg" alt="Card image cap">
+        <a href = "/category" >
+          <img class="img-responsive" src="http://lorempixel.com/360/360/" alt="Card image cap">
         <div class="caption" id="caption-half-up">
           <p>
-            <a href="#" class="btn btn-primary" role="button" data-toggle = "modal" data-target = "#myModal">
-              Top This!
-            </a>
+            #Beatit_tag
           </p>
         </div>
-         <div class="caption" id="caption-half-down">
-          <p>
-            <a href="#" class="btn btn-primary" role="button" data-toggle = "modal" data-target = "#myModal">
-              Vote for this!
-            </a>
-          </p>
+          <div class="caption" id="caption-half-down">         
         </div>
+        </a>
      </div>' %>
 
 <div class ="container">
   <div class = "row"><!-- #large category images -->
 
-
-    <% client = Instagram.client(:access_token => session[:access_token])
-    tags = client.tag_search('beatit_computer')
-    pictures = client.tag_recent_media(tags[0].name).sort!{|x,y| y.likes[:count] <=> x.likes[:count]}
-
-    # picture = Picture.get_picture_with_more_likes(client, "beatit_computer")
-    # p picture.inspect
-     user = Picture.get_all_category_pictures_with_more_likes(client)
-     pp user
-    %>
-    <% for media_item in pictures  %>
+    <%client = Instagram.client(:access_token => session[:access_token])%>
 
 
-    <div class="col-sm-6 col-md-3"><div class = "thumbnail" >
-        <img class="card-img-top" src=<%="#{pictures[0].images.standard_resolution.url}"%> alt="Card image cap">
-        <div class="caption" id="caption-half-up">
-          <p>
-            <a href="#" class="btn btn-primary" role="button" data-toggle = "modal" data-target = "#myModal">
-              Top This!
-            </a>
-          </p>
-        </div>
-         <div class="caption" id="caption-half-down">
-          <p>
-            <a href="#" class="btn btn-primary" role="button" data-toggle = "modal" data-target = "#myModal">
-              Vote for this!
-            </a>
-          </p>
-        </div>
-     </div>
-    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3"><%= @image %></div> <!-- col-xs-12 col-sm-6 --> 
 
 
-    <%end%>
+
 
 
 
   </div>
   <!-- Following row contains small images -->
   <div class="row">
-    <div class="col-sm-4 col-md-2">
+    <div class="col-xs-2 col-sm-2 col-md-2"><!-- col-xs-8 col-sm-4 --> 
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-xs-2 col-sm-2 col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-xs-2 col-sm-2 col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-xs-2 col-sm-2 col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-xs-2 col-sm-2 col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-xs-2 col-sm-2 col-md-2">
       <%= @image %>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-4 col-md-2">
+    <div class="col-xs-2 col-sm-2 col-md-2"><!-- col-xs-8 col-sm-4 --> 
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-xs-2 col-sm-2 col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-xs-2 col-sm-2 col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-xs-2 col-sm-2 col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-xs-2 col-sm-2 col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-xs-2 col-sm-2 col-md-2">
       <%= @image %>
     </div>
   </div>
+  
 </div> <!-- #container -->
 
 <!-- This div is login/vote pop up -->
