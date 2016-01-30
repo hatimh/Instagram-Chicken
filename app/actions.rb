@@ -5,6 +5,17 @@ enable :sessions
 
 CALLBACK_URL = "http://localhost:3000/oauth/callback"
 
+# Login page
+get '/login' do
+  if session[:access_token] == nil 
+    erb :'login'
+  else
+    redirect '/user'
+  end
+end
+
+
+
 
 # Hatim's instagram key
 # Instagram.configure do |config|

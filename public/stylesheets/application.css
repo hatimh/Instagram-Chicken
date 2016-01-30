@@ -12,9 +12,25 @@ body {
   margin-bottom: 50px;
 
 }
+.blur {
+  -webkit-filter: blur(5px);
+}
+.unblur {
+  -webkit-filter: none;
+}
 
 .logo {
     color: #EEE;
     font-family: "Pacifico";
+}
+
+.thumbnail:hover:enabled #caption-half-up{
+visibility: visible;
+opacity: 0.9;
+height:50%;
+-moz-transform: translateY(-100%);
+-o-transform: translateY(-100%);
+-webkit-transform: translateY(-100%);
+transform: translateY(-100%);
 }
 

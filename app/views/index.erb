@@ -1,9 +1,17 @@
 <div class="masthead clearfix">
   <div class="container">
     <!-- Logo -->
-    <ul class = "nav nav-justified" >
+    <ul class = "nav-justified" >
       <li >
         <h1 class="logo">PikzArena</h1>        
+      </li>
+      <li>
+        <form class="navbar-form" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Enter your tag here...">
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
       </li>  
       <li>
         <% if session[:access_token] == nil %>
@@ -12,14 +20,7 @@
           <button onclick="window.location.href='oauth/disconnect'" class="btn btn-primary"  ><b>Log Out</b></button>
         <% end %>
       </li>
-      <li>
-        <form class="navbar-form" role="search">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Look for a tag...">
-          </div>
-          <button type="submit" class="btn btn-primary">Search</button>
-        </form>
-      </li>
+      
     </ul>
   </div>
 </div> <!-- mastheadflix -->
@@ -27,7 +28,7 @@
 <!-- image with hover captions -->
 <% @image =
     '<div class = "thumbnail" >
-        <img class="card-img-top" src="http://lorempixel.com/360/360/" alt="Card image cap">
+        <img class="img-responsive" src="http://lorempixel.com/360/360/" alt="Card image cap">
         <div class="caption" id="caption-half-up">
           <p>
             <a href="#" class="btn btn-primary" role="button" data-toggle = "modal" data-target = "#myModal">
@@ -46,49 +47,49 @@
 
 <div class ="container">
   <div class = "row"><!-- #large category images -->
-    <div class="col-sm-6 col-md-3"><%= @image %></div>
-    <div class="col-sm-6 col-md-3"><%= @image %></div>
-    <div class="col-sm-6 col-md-3"><%= @image %></div>
-    <div class="col-sm-6 col-md-3"><%= @image %></div>
+    <div class="col-md-3"><%= @image %></div> <!-- col-xs-12 col-sm-6 --> 
+    <div class="col-md-3"><%= @image %></div>
+    <div class="col-md-3"><%= @image %></div>
+    <div class="col-md-3"><%= @image %></div>
   </div>
   <!-- Following row contains small images -->
   <div class="row">
-    <div class="col-sm-4 col-md-2">
+    <div class="col-md-2"><!-- col-xs-8 col-sm-4 --> 
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-md-2">
       <%= @image %>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-4 col-md-2">
+    <div class="col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-md-2">
       <%= @image %>
     </div>
-    <div class="col-sm-4 col-md-2">
+    <div class="col-md-2">
       <%= @image %>
     </div>
   </div>
