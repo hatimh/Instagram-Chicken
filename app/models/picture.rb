@@ -34,6 +34,7 @@ class Picture
       picture.category = hashtag
       pictures << picture
     end 
+    pictures.sort!{|x,y| y.likes[:count] <=> x.likes[:count]}
     pictures
   end 
 
