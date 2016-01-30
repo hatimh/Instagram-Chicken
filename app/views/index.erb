@@ -28,7 +28,7 @@
 <!-- image with hover captions -->
 <% @image =
     '<div class = "thumbnail" >
-        <img class="card-img-top" src="http://lorempixel.com/360/360/" alt="Card image cap">
+        <img class="card-img-top" src="" alt="Card image cap">
         <div class="caption" id="caption-half-up">
           <p>
             <a href="#" class="btn btn-primary" role="button" data-toggle = "modal" data-target = "#myModal">
@@ -45,55 +45,24 @@
         </div>
      </div>' %>
 
-<div class ="container">
-  <div class = "row"><!-- #large category images -->
-    <div class="col-sm-6 col-md-3"><%= @image %></div>
-    <div class="col-sm-6 col-md-3"><%= @image %></div>
-    <div class="col-sm-6 col-md-3"><%= @image %></div>
-    <div class="col-sm-6 col-md-3"><%= @image %></div>
+<div class="container">
+
+<!-- User dashboard when logged in -->
+<% if session[:access_token] != nil %>
+<button class="btn btn-primary pull-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  Hide User Dash
+</button>
+<div class="collapse" id="collapseExample">
+  <div class="well card">
+    <img src='<%= @client.user.profile_picture %>' />
+    <h4 class="card-title"><%= @client.user.username %></h4>
+    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
   </div>
-  <!-- Following row contains small images -->
-  <div class="row">
-    <div class="col-sm-4 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-sm-4 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-sm-4 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-sm-4 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-sm-4 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-sm-4 col-md-2">
-      <%= @image %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-4 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-sm-4 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-sm-4 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-sm-4 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-sm-4 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-sm-4 col-md-2">
-      <%= @image %>
-    </div>
-  </div>
-</div> <!-- #container -->
+</div>
+<% end %>
+
+</div>
 
 <!-- This div is login/vote pop up -->
 <div class="modal fade" id="myModal" role="dialog" >
