@@ -15,7 +15,7 @@ Instagram.configure do |config|
 end
 
 get "/" do
-  '<a href="/oauth/connect">Connect with Instagram</a>'
+  redirect "/oauth/connect"
 end
 
 get "/oauth/connect" do
@@ -25,8 +25,58 @@ end
 get "/oauth/callback" do
   response = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
   session[:access_token] = response.access_token
+  #session[:access_token] = "16384709.6ac06b4.49b97800d7fd4ac799a2c889f50f2587"
   create_user(Instagram.client(:access_token => session[:access_token]).user)
-  redirect "/nav"
+ # session[:user_id] = response[:id]
+  @userid = response.user.id
+  puts "------"
+  puts response.inspect
+  puts "-----"
+  puts response.user.id
+  #redirect "/nav"
+  #redirect "/competing"
+  erb :index
+  
+end
+
+get "/home" do
+  client = Instagram.client(:access_token => session[:access_token])
+  html = "<h1>Winners</h1>"
+  arr = []
+  tags = client.tag_search('beatit_') # returns all tags that start with beatit_
+  tags.each do |tag|
+    if tag.name =~ /^beatit_[a-z]+/ 
+      arr << tag.name
+    end
+  # arr.each do |tagname|
+  #   puts tagname.length
+  # end
+  end 
+  arr.uniq!
+  puts arr
+  @arrwinners = []
+  arr.each do |x|
+    
+    tags = client.tag_search(x)
+    tags.each do |tag|
+        if tag.name =~ /^#{x}$/ 
+          @arrwinners << tag
+        end
+    end 
+   
+    # html << "<h2>Tag Name = #{tags[0].name}. Media Count =  #{tags[0].media_count}. </h2><br/><br/>"
+    # pictures = client.tag_recent_media(tags[0].name).sort!{|x,y| y.likes[:count] <=> x.likes[:count]}
+
+    # html << "<div style='float:left;'><img src='#{pictures[0].images.thumbnail.url}'><br/> <a href='/media_like/#{pictures[0].id}'>Like</a>  <a href='/media_unlike/#{pictures[0].id}'>Un-Like</a>  <br/>LikesCount=#{pictures[0].likes[:count]}</div>" 
+  end
+  @arrwinners.uniq!
+    
+    @arrwinners.each do |element|
+      pictures = client.tag_recent_media(element.name).sort!{|x,y| y.likes[:count] <=> x.likes[:count]}
+      html << "<div style='float:left;'><img src='#{pictures[0].images.thumbnail.url}'><br/> <a href='/media_like/#{pictures[0].id}'>Like</a>  <a href='/media_unlike/#{pictures[0].id}'>Un-Like</a>  <br/>LikesCount=#{pictures[0].likes[:count]}</div>" 
+    end 
+
+html
 end
 
 get "/nav" do
@@ -49,14 +99,21 @@ get "/nav" do
   html
 end
 
-get "/user_recent_media" do
+
+get "/competing" do
   client = Instagram.client(:access_token => session[:access_token])
   user = client.user
-
-  html = "<h1>#{user.username}'s recent media</h1>"
+  html = ""
+  html << "<h1>#{user.username}'s WINS': </h1>"
+  html << "<h1>#{user.username} is competing in: </h1>"
   html << "<h1>#{user.bio} bio</h1>"
   for media_item in client.user_recent_media
-    html << "<div style='float:left;'><img src='#{media_item.images.thumbnail.url}'><br/> <a href='/media_like/#{media_item.id}'>Like</a>  <a href='/media_unlike/#{media_item.id}'>Un-Like</a>  <br/>LikesCount=#{media_item.likes[:count]}</div>"
+      puts media_item.tags
+      media_item.tags.each do |tag|
+        if tag =~ /^beatit_[a-z]+/ 
+          html << "<div style='float:left;'><strong>##{tag}<strong><img src='#{media_item.images.thumbnail.url}'><br/> <a href='/media_like/#{media_item.id}'>Like</a>  <a href='/media_unlike/#{media_item.id}'>Un-Like</a>  <br/>LikesCount=#{media_item.likes[:count]}</div>"
+        end
+      end
   end
   html
 end
@@ -64,9 +121,6 @@ end
 get '/media_like/:id' do
   client = Instagram.client(:access_token => session[:access_token])
   client.like_media("#{params[:id]}")
-  # puts client.inspect
-  # puts "-------"
-  # puts params[:id]
   redirect "/user_recent_media"
 end
 
@@ -160,6 +214,7 @@ get "/tags" do
   len = client.tag_search(tags[0].name).length
   html << "#{len}"
   html
+  #erb :'/index'
 end
 
 get "/limits" do
@@ -172,9 +227,15 @@ end
 
 helpers do
   def create_user(user)
+    data_user = User.find_by(instagram_user_id: user.id.to_i)
+    unless user
+      data_user = User.create(username: user.username , full_name: user.full_name , instagram_user_id: user.id.to_i, 
+                  profile_picture: user.profile_picture , bio: user.bio, website: user.website)
+    end 
+    data_user
+  end
 
-    User.create(username: user.username , full_name: user.full_name , instagram_user_id: user.id.to_i, profile_picture: user.profile_picture , bio: user.bio, website: user.website)
-    @user = User.new
-    puts @user.inspect
+  def loged_in?
+    !session[:access_token].nil?
   end
 end
