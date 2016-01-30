@@ -65,7 +65,8 @@
           <img class="img-responsive" src=<%=pictures_with_more_likes[i].standard_resolution_url%> alt="Card image cap">
         <div class="caption" id="caption-half-up">
           <p>
-            #Beatit_tag
+            #<%= pictures_with_more_likes[i].category%>
+            likes <%=pictures_with_more_likes[i].likes["count"]%>
           </p>
         </div>
           <div class="caption" id="caption-half-down">         
@@ -79,26 +80,32 @@
 
   </div>
   <!-- Following row contains small images -->
+
+  <%for i in 3..(pictures_with_more_likes.length - 1)
+  if i%6 == 0 && i%6 != 3 %>
   <div class="row">
+  <%end%>
     <div class="col-xs-2 col-sm-2 col-md-2"><!-- col-xs-8 col-sm-4 --> 
-      <%= @image %>
+      <div class = "thumbnail" >
+        <a href = "/category" >
+          <img class="img-responsive" src=<%=pictures_with_more_likes[i].standard_resolution_url%> alt="Card image cap">
+        <div class="caption" id="caption-half-up">
+          <p>
+            #Beatit_tag
+          </p>
+        </div>
+          <div class="caption" id="caption-half-down">         
+        </div>
+        </a>
+     </div>
     </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <%= @image %>
-    </div>
+
+  <%if i%6 == 0 && i%6 != 3 %>
   </div>
+  <%end%>
+  <%end%>
+
+
   <div class="row">
     <div class="col-xs-2 col-sm-2 col-md-2"><!-- col-xs-8 col-sm-4 --> 
       <%= @image %>
