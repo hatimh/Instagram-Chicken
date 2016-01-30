@@ -10,9 +10,19 @@ get '/login' do
   if session[:access_token] == nil 
     erb :'login'
   else
-    redirect '/user'
+    erb :'user'
   end
 end
+
+# Category page
+get '/category' do
+  if session[:access_token] == nil 
+    erb :'login'
+  else
+    erb :'category'
+  end  
+end
+
 
 
 
