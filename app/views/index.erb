@@ -55,12 +55,22 @@
 <div class ="container">
   <div class = "row"><!-- #large category images -->
 
-    <%client = Instagram.client(:access_token => session[:access_token])%>
+    <%client = Instagram.client(:access_token => session[:access_token])
+     pictures_with_more_likes = Picture.get_all_category_pictures_with_more_likes(client) 
+    %>
 
-
-    <div class="col-xs-3 col-sm-3 col-md-3"><%= @image %></div> <!-- col-xs-12 col-sm-6 --> 
-
-
+    <div class="col-xs-3 col-sm-3 col-md-3"><div class = "thumbnail" >
+        <a href = "/category" >
+          <img class="img-responsive" src=<%=pictures_with_more_likes[0].standard_resolution_url%> alt="Card image cap">
+        <div class="caption" id="caption-half-up">
+          <p>
+            #Beatit_tag
+          </p>
+        </div>
+          <div class="caption" id="caption-half-down">         
+        </div>
+        </a>
+     </div></div> <!-- col-xs-12 col-sm-6 --> 
 
 
 
