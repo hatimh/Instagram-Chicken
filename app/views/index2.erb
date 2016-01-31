@@ -1,0 +1,144 @@
+<div class="masthead clearfix">
+  <div class="container">
+    <!-- Logo -->
+    <div class="logo pull-left">
+      <h1>PikzArena</h1>
+    </div>
+
+    <ul class="nav navbar-nav pull-right">
+      <li class="dropdown">
+        <% if session[:access_token] == nil %>
+          <a href="oauth/connect"><b>Connect with Instagram</b></a>
+        <% else %>
+          <a href="oauth/disconnect"><b>Log Out</b></a>
+        <% end %>
+      </li>
+      <li>
+        <form class="navbar-form" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Look for a tag...">
+          </div>
+          <button type="submit" class="btn btn-default">Search</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</div> <!-- mastheadflix -->
+
+<!-- image with hover captions -->
+
+
+
+
+
+<% @image =
+    '<div class = "thumbnail" >
+        <img class="card-img-top" src="https://scontent.cdninstagram.com/t51.2885-15/s150x150/e35/12545523_552589768240969_404265499_n.jpg" alt="Card image cap">
+        <div class="caption" id="caption-half-up">
+          <p>
+            <a href="#" class="btn btn-primary" role="button" data-toggle = "modal" data-target = "#myModal">
+              Top This!
+            </a>
+          </p>
+        </div>
+         <div class="caption" id="caption-half-down">
+          <p>
+            <a href="#" class="btn btn-primary" role="button" data-toggle = "modal" data-target = "#myModal">
+              Vote for this!
+            </a>
+          </p>
+        </div>
+     </div>' %>
+
+<div class ="container">
+  <% client = Instagram.client(:access_token => session[:access_token])
+  tags = client.tag_search('beatit_computer')
+  pictures = client.tag_recent_media(tags[0].name).sort!{|x,y| y.likes[:count] <=> x.likes[:count]}%>
+
+  <% for media_item in pictures  %>
+
+
+  <div class = "row"><!-- #large category images -->
+    <div class="col-sm-6 col-md-3"><div class = "thumbnail" >
+        <img class="card-img-top" src=<%="#{media_item.images.standard_resolution.url}"%> alt="Card image cap">
+        <div class="caption" id="caption-half-up">
+          <p>
+            <a href="#" class="btn btn-primary" role="button" data-toggle = "modal" data-target = "#myModal">
+              Top This!
+            </a>
+          </p>
+        </div>
+         <div class="caption" id="caption-half-down">
+          <p>
+            <a href="#" class="btn btn-primary" role="button" data-toggle = "modal" data-target = "#myModal">
+              Vote for this!
+            </a>
+          </p>
+        </div>
+     </div></div>
+  </div>
+
+  <%end%>
+
+  <!-- Following row contains small images -->
+  <div class="row">
+  
+    <div class="col-sm-4 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-sm-4 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-sm-4 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-sm-4 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-sm-4 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-sm-4 col-md-2">
+      <%= @image %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-sm-4 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-sm-4 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-sm-4 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-sm-4 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-sm-4 col-md-2">
+      <%= @image %>
+    </div>
+  </div>
+</div> <!-- #container -->
+
+<!-- This div is login/vote pop up -->
+<div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        <div class = "container">
+          <%if true %>
+            <a class="btn btn-primary" role="button" href = "/oauth/connect" >Login to your Instagram to beat the image or vote for it!</a>
+          <%end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
