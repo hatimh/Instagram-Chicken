@@ -1,4 +1,3 @@
-
 class Picture
 
   BEAT_HASH_TAG = 'beatit _'
@@ -34,9 +33,18 @@ class Picture
       picture.category = hashtag
       pictures << picture
     end 
+    pictures.sort!{|x,y| y.likes[:count] <=> x.likes[:count]}
     pictures
   end 
+  def self.get_category_pictures(client, hashtag)
+    instagram_pictures = client.tag_recent_media(hashtag).sort!{|x,y| y.likes[:count] <=> x.likes[:count]}
+    puts "----"
+    puts instagram_pictures.size
+    puts "----"
+    puts instagram_pictures
+    instagram_pictures
 
+  end
   def self.get_picture_with_more_likes(client, hashtag)
     instagran_pictures = client.tag_recent_media(hashtag).sort!{|x,y| y.likes[:count] <=> x.likes[:count]}
     if instagran_pictures

@@ -1,0 +1,6 @@
+<%=@category%>
+<%client = Instagram.client(:access_token => session[:access_token])%>
+<%picture = Picture.get_category_pictures(client, @category)%>
+<% for i in (0..picture.size - 1) %>
+  <img class="img-responsive" src=<%=picture[i].images.standard_resolution.url%> alt="Card image cap">
+<% end %>
