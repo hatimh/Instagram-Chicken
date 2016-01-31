@@ -1,0 +1,68 @@
+<div class="blur masthead clearfix">
+  <div class="container">
+    <!-- Logo -->
+      <h1 class="logo">PikzArena</h1>
+  </div>
+</div> <!-- mastheadflix -->
+
+  <div class="row">
+    <h1 class="text-center">Welcome to <span class = logo>PikzArena</span></h1>
+    <h1 class="text-center"><a href="oauth/connect" role="button" class="btn btn-lg btn-primary" data-toggle="modal">Connect with Instagram</a></h1>
+  </div>
+
+  <!-- Dummy image -->
+  <% @image =
+    '<div class = "thumbnail" >
+        <img class="img-responsive" src="/images/instagram-logo.jpg" >
+
+    </div>' %>
+
+<div class ="blur container" >
+  <div class = "row"><!-- #large category images -->
+    <div class="col-xs-3 col-sm-3 col-md-3"><%= @image %></div> <!-- col-xs-12 col-sm-6 -->
+    <div class="col-xs-3 col-sm-3 col-md-3"><%= @image %></div>
+    <div class="col-xs-3 col-sm-3 col-md-3"><%= @image %></div>
+    <div class="col-xs-3 col-sm-3 col-md-3"><%= @image %></div>
+  </div>
+  <!-- Following row contains small images -->
+  <div class="row">
+    <div class="col-xs-2 col-sm-2 col-md-2"><!-- col-xs-8 col-sm-4 -->
+      <%= @image %>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2">
+      <%= @image %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-2 col-sm-2 col-md-2"><!-- col-xs-8 col-sm-4 -->
+      <%= @image %>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2">
+      <%= @image %>
+    </div>
+    <div class="col-xs-2 col-sm-2 col-md-2">
+      <%= @image %>
+    </div>
+  </div>
+</div>
