@@ -1,5 +1,6 @@
 body {
   background-image: url(../images/bg.jpg)
+  
 }
 .masthead {
   background: url(../images/headerbg.jpg);
@@ -28,8 +29,21 @@ body {
   font-size: 2em;
 }
 
-.caption {
-  font-size: 2rem;
+.imgbig {
+  font-size: 3vw;
+}
+
+.imgsmall {
+  font-size: 1.5vw;
+}
+
+.icon {
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: auto;
+  margin-top: 10%;
+  width: 30%;
+  height: 30%; 
 }
 
 
