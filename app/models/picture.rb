@@ -36,6 +36,7 @@ class Picture
     pictures.sort!{|x,y| y.likes[:count] <=> x.likes[:count]}
     pictures
   end 
+
   def self.get_category_pictures(client, hashtag)
     instagram_pictures = client.tag_recent_media(hashtag).sort!{|x,y| y.likes[:count] <=> x.likes[:count]}
     puts "----"
@@ -43,8 +44,8 @@ class Picture
     puts "----"
     puts instagram_pictures
     instagram_pictures
-
   end
+
   def self.get_picture_with_more_likes(client, hashtag)
     instagran_pictures = client.tag_recent_media(hashtag).sort!{|x,y| y.likes[:count] <=> x.likes[:count]}
     if instagran_pictures
