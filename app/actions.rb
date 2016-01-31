@@ -14,24 +14,6 @@ Instagram.configure do |config|
   # For secured endpoints only
   #config.client_ips = '<Comma separated list of IPs>'
 end
-# =======
-# # Login page
-# get '/login' do
-#   if session[:access_token] == nil 
-#     erb :'login'
-#   else
-#     erb :'user'
-#   end
-# end
-
-# # Category page
-# get '/category' do
-#   if session[:access_token] == nil 
-#     erb :'login'
-#   else
-#     erb :'category'
-#   end  
-# end
 
 get "/" do
   if session[:access_token] == nil 
