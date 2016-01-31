@@ -32,4 +32,11 @@ body {
   font-size: 2rem;
 }
 
+.icon {
+  margin-right: auto;
+  margin-left: auto;
+  width: 30%;
+  height: 30%; 
+}
+
 
