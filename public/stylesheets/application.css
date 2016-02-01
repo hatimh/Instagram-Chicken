@@ -1,7 +1,16 @@
 body {
-  background-image: url(../images/bg.jpg)
-  
+  background-image: url(../images/bg.jpg)  
 }
+
+.heading {
+  color: #EEE;
+  box-shadow: 0 1px 8px black;
+}
+
+.lightheading {
+  color: #EEE;
+}
+
 .masthead {
   background: url(../images/headerbg.jpg);
   /*position: fixed;*/
@@ -11,22 +20,28 @@ body {
   width: 100%;
   box-shadow: 0 1px 8px black;
   margin-bottom: 50px;
-
 }
+
 .blur {
   -webkit-filter: blur(5px);
 }
+
 .unblur {
   -webkit-filter: none;
 }
 
 .logo {
-    color: #EEE;
+    height: 30%;
+    width: 50%;
     font-family: "Pacifico";
 }
 
 .thumbnail {
   font-size: 2em;
+}
+
+.imghuge {
+  font-size: 3vw;
 }
 
 .imgbig {

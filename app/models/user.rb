@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
                             media_item.likes,
                             media_item.user.id)
           picture_with_tag.category = tag
-          pictures_competing << picture
+          pictures_competing << picture_with_tag
         end
       end
     end

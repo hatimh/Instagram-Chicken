@@ -8,19 +8,15 @@ enable :sessions
 CALLBACK_URL = "http://localhost:3000/oauth/callback"
 
 Instagram.configure do |config|
- config.client_id = "4a9c8bcaff1b4b03901e20bb5777d8bd"
- config.client_secret = "1b574823e66d41dbbbb2a84b18646ddd"
+ config.client_id = "7b2f272779ce4767a882aa3aef445645"
+ config.client_secret = "31c5963931964e5d9abc7e8abe4cce93"
   config.scope = "public_content likes"
   # For secured endpoints only
   #config.client_ips = '<Comma separated list of IPs>'
 end
 
 get "/" do
-  if session[:access_token] == nil 
-    erb :'login'
-  else
-    erb :'user'
-  end
+  erb :'login'
 end
 
 get "/category/:n" do
@@ -31,19 +27,14 @@ end
 get "/home" do
   erb :'index'
 end
-
 get "/oauth/connect" do
   redirect Instagram.authorize_url(:redirect_uri => CALLBACK_URL)
 end
 
-get "/oauth/disconnect" do
-  session[:access_token] == nil
-  erb :'login' 
-end
-
 get "/oauth/callback" do
   response = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
-  session[:access_token] = response.access_token
+  #session[:access_token] = response.access_token
+  session[:access_token] = "16384709.6ac06b4.49b97800d7fd4ac799a2c889f50f2587"
   create_user(Instagram.client(:access_token => session[:access_token]).user)
   redirect "/home"
 end
@@ -75,24 +66,23 @@ get "/user_recent_media" do
   html = "<h1>#{user.username}'s recent media</h1>"
   html << "<h1>#{user.bio} bio</h1>"
   for media_item in client.user_recent_media
-    html << "<div style='float:left;'><img src='#{media_item.images.thumbnail.url}'><br/> <a href='/media_like/#{media_item.id}'>Like</a>  <a href='/media_unlike/#{media_item.id}'>Un-Like</a>  <br/>LikesCount=#{media_item.likes[:count]}</div>"
+    html << "<div style='float:left;'><img src='#{media_item.images.thumbnail.url}'><br/> <a href='/media_like/media_item.id'>Like</a>  <a href='/media_unlike/media_item.id'>Un-Like</a>  <br/>LikesCount=#{media_item.likes[:count]}</div>"
   end
   html
 end
 
+post '/category/:hash/media_like/:id' do
+  client = Instagram.client(:access_token => session[:access_token])
+  client.like_media("#{params[:id]}")
+  @hash = params[:hash]
+  redirect "/category/#{@hash}"
+end
 
-# Hatim's instagram key
-# Instagram.configure do |config|
-#   config.client_id = "233b809cbca8494b85743f13d81fa9b5"
-#   config.client_secret = "87249927d0b04a03af10f7ad0d048075"
-#   # For secured endpoints only
-#   #config.client_ips = '<Comma separated list of IPs>'
-# end
-
-get '/media_unlike/:id' do
+post '/category/:hash/media_unlike/:id' do
   client = Instagram.client(:access_token => session[:access_token])
   client.unlike_media("#{params[:id]}")
-  redirect "/user_recent_media"
+  @hash = params[:hash]
+  redirect "/category/#{@hash}"
 end
 
 get "/user_media_feed" do
