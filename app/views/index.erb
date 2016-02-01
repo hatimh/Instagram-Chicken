@@ -1,18 +1,6 @@
-
 <div class="masthead clearfix">
   <div class="container">
     <!-- Logo -->
-
-    <ul class = "nav nav-justified" >
-      <li >
-        <h1 class="logo">PikzArena</h1>
-      </li>
-      <li>
-        <% if session[:access_token] == nil %>
-          <button onclick="window.location.href='oauth/connect'" class="btn btn-primary"><b>Connect with Instagram</b></button>
-        <% else %>
-          <button onclick="window.location.href='oauth/disconnect'" class="btn btn-primary"  ><b>Log Out</b></button>
-        <% end %>
     <ul class = "nav-justified" >
       <li >
         <h1 class="logo">PikzArena</h1>
@@ -32,10 +20,9 @@
           <button onclick="window.location.href='oauth/disconnect'" class="btn btn-primary"  ><b>Log Out</b></button>
         <% end %>
       </li>
-
     </ul>
   </div>
-</div> <!-- mastheadflix -->
+</div> <!-- mastheadflix is the nav bar with logo-->
 
 <!-- image with hover captions -->
 <% @image =
@@ -53,100 +40,54 @@
         </a>
      </div>' %>
 
-<div class="container">
-
-<!-- User dashboard when logged in -->
-<% if session[:access_token] != nil %>
-<button class="btn btn-primary pull-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-  Hide User Dash
-</button>
-<div class="collapse" id="collapseExample">
-  <div class="well card">
-    <img src='<%= @client.user.profile_picture %>' />
-    <h4 class="card-title"><%= @client.user.username %></h4>
-    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-  </div>
-</div>
-<% end %>
-
-</div>
-
 <div class ="container">
   <div class = "row"><!-- #large category images -->
-
     <%client = Instagram.client(:access_token => session[:access_token])
      pictures_with_more_likes = Picture.get_all_category_pictures_with_more_likes(client)
     for i in 0..3
     %>
-
-    <div class="col-xs-3 col-sm-3 col-md-3"><div class = "thumbnail" >
-        <a href = "/category" >
-          <img class="img-responsive" src=<%=pictures_with_more_likes[i].standard_resolution_url%> alt="Card image cap">
-        <div class="caption" id="caption-half-up">
-          <p>
-            #<%= pictures_with_more_likes[i].category%>
-            likes <%=pictures_with_more_likes[i].likes["count"]%>
-          </p>
-        </div>
-          <div class="caption" id="caption-half-down">
-        </div>
-        </a>
-     </div></div> <!-- col-xs-12 col-sm-6 -->
-
-     <%end%>
-
-
-
-  </div>
-  <!-- Following row contains small images -->
-
-  <%for i in 3..(pictures_with_more_likes.length - 1)
-  if i%6 == 0 && i%6 != 3 %>
-  <div class="row">
-  <%end%>
-    <div class="col-xs-2 col-sm-2 col-md-2"><!-- col-xs-8 col-sm-4 -->
+    <div class="col-xs-3 col-sm-3 col-md-3">
       <div class = "thumbnail" >
-        <a href = "/category" >
-          <img class="img-responsive" src=<%=pictures_with_more_likes[i].standard_resolution_url%> alt="Card image cap">
-        <div class="caption" id="caption-half-up">
-          <p>
-            #Beatit_tag
-          </p>
+      <a href = "/category" >
+      <img class="img-responsive" src=<%=pictures_with_more_likes[i].standard_resolution_url%> alt="Card image cap">
+      <div class="caption" id="caption-half-up">
+        <p>
+          #<%= pictures_with_more_likes[i].category%>
+          likes <%=pictures_with_more_likes[i].likes["count"]%>
+        </p>
+      </div>
+      <div class="caption" id="caption-half-down">
+      </div>
+      </a>
+      </div>
+    </div> <!-- col-xs-12 col-sm-6 -->
+    <%end%> <!--  End of for loop -->
+  </div><!--  End of row for large images -->
+</div>
+
+<!-- Following row contains small images -->
+  <% for i in (1..(pictures_with_more_likes.size-4)/6) %>
+  <% a = (pictures_with_more_likes.size-4) % 6%>
+    <div class="row">
+      <% n = i + 3 %>
+      <%6.times do%>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <div class = "thumbnail" >
+            <a href = "/category/<%= pictures_with_more_likes[n].category %>" >
+              <img class="img-responsive" src=<%=pictures_with_more_likes[n].standard_resolution_url%>>
+              <div class="caption imgsmall" id="caption-half-up">
+                <p>
+                  <%=pictures_with_more_likes[n].category %>
+                </p>
+              </div>
+              <div class="caption" id="caption-half-down"></div>
+            </a>
+          </div>
         </div>
-          <div class="caption" id="caption-half-down">
-        </div>
-        </a>
-     </div>
+        <%n = n + 1%>
+      <%end%>
     </div>
-
-  <%if i%6 == 0 && i%6 != 3 %>
-  </div>
   <%end%>
-  <%end%>
-
-
-  <div class="row">
-    <div class="col-xs-2 col-sm-2 col-md-2"><!-- col-xs-8 col-sm-4 -->
-      <%= @image %>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <%= @image %>
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-      <%= @image %>
-    </div>
-  </div>
-
 </div> <!-- #container -->
 
 <!-- This div is login/vote pop up -->
@@ -167,3 +108,23 @@
       </div>
     </div>
 </div>
+===
+    <%a.times do%>
+      <div class="col-xs-2 col-sm-2 col-md-2">
+        <div class = "thumbnail" >
+          <a href = "/category/<%= pictures_with_more_likes[n].category %>" >
+            <img class="img-responsive" src=<%=pictures_with_more_likes[n].standard_resolution_url%> >
+            <div class="caption imgsmall" id="caption-half-up">
+              <p>
+                <%=pictures_with_more_likes[n].category%>
+              </p>
+            </div>
+            <div class="caption" id="caption-half-down"></div>
+          </a>
+        </div>
+      </div>
+      <%n = n + 1%>
+    <%end%>
+  </div>
+</div> <!-- #container -->
+>>>>>>> f8f9352eb5e379a9c93a4484e10c74739106bcd1

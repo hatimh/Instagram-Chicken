@@ -873,7 +873,7 @@ transform: translateX(-100%);
 /******** GLOBAL CAPTION STYLES ********/
 /***************************************/
 .thumbnail{
-max-width:400px;
+max-width:600px;/* changed from 400px*/
 position:relative;
 overflow:hidden;
 }
