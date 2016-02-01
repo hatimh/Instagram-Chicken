@@ -8,7 +8,12 @@
         <a href = "/"><img class="logo" src = "/images/logo.png"></a>        
       </li>
       <li>
-       <div></div>
+       <form method="post" action="/search" class="navbar-form" role="search">
+          <div class="form-group">
+            <input name = "category" type="text" class="form-control" placeholder="Enter your tag here...">
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>        
       </li>
       <li>
        <div></div>
@@ -28,22 +33,22 @@
       <img class="img-responsive" src=<%=picture[i].images.standard_resolution.url%>> 
       <div class="caption imghuge" id="caption-half-up">
         <form id ='beat' method="post" action="">
-          <a href ="#" class ="btn-primary" onclick="document.getElementById('beat').submit();">
+          <a href ="/beatit" class ="btn-primary" onclick="document.getElementById('beat').submit();">
             <img src = "/images/fist.png" class = "icon"></img>
           </a>
         </form>        
       </div>
       <div class="caption imghuge" id="caption-half-down">
         <%if picture[i].user_has_liked%>
-        <form id ='like_form' method="post" action="<%=@category%>/media_unlike/<%=picture[i].id%>">
-          <a href ="#" class ="btn-primary" onclick="document.getElementById('like_form').submit();">
+        <form id ='unlikeform' method="post" action="<%=@category%>/media_unlike/<%=picture[i].id%>">
+          <a href ="#" class ="btn-primary" onclick="document.getElementById('unlikeform').submit();">
             <img src = "/images/liked.png" class = "icon"></img>
           </a>
         </form>
         
         <%else%>
-          <form id ='like_form' method="post" action="<%=@category%>/media_like/<%=picture[i].id%>">
-            <a href ="#" class ="btn-primary" onclick="document.getElementById('like_form').submit();">
+          <form id ='likeform' method="post" action="<%=@category%>/media_like/<%=picture[i].id%>">
+            <a href ="#" class ="btn-primary" onclick="document.getElementById('likeform').submit();">
               <img src = "/images/like.png" class = "icon"></img>
             </a>
         </form>

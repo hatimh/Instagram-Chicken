@@ -3,7 +3,7 @@ class Picture
   BEAT_HASH_TAG = 'beatit _'
 
   attr_accessor :category
-  attr_reader :low_resolution_url, :thumbnail_url, :standard_resolution_url, :likes
+  attr_reader :low_resolution_url, :thumbnail_url, :standard_resolution_url, :likes, :user_id
 
   def initialize(low_resolution_url, thumbnail_url, standard_resolution_url, likes, user_id)
     @low_resolution_url = low_resolution_url

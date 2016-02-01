@@ -31,9 +31,9 @@ body {
 }
 
 .logo {
-    height: 30%;
     width: 50%;
     font-family: "Pacifico";
+    margin-top: 10px;
 }
 
 .thumbnail {
@@ -41,7 +41,7 @@ body {
 }
 
 .imghuge {
-  font-size: 3vw;
+  font-size: 2.5vw;
 }
 
 .imgbig {

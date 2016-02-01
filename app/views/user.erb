@@ -1,33 +1,21 @@
-<!-- image with hover captions -->
-<% @image =
-    '<div class = "thumbnail" >
-        <a href = "/category" >
-          <img class="img-responsive" src="http://lorempixel.com/360/360/" alt="Card image cap">
-        <div class="caption" id="caption-half-up">
-          <p>
-            #Beatit_tag
-          </p>
-        </div>
-          <div class="caption" id="caption-half-down">
-        </div>
-        </a>
-     </div>' %>
-
 <!-- Navbar -->
 <div class="masthead clearfix">
   <div class="container">
-    <ul class = "nav nav-justified" >
+    <ul class = "nav-justified" >
       <!-- logo -->
       <li>
         <a href = "/"><img class="logo" src = "/images/logo.png"></a> 
       </li>
       <li>
-        <form class="navbar-form" role="search">
+       <form method="post" action="/search" class="navbar-form" role="search">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Enter your tag here...">
+            <input name = "category" type="text" class="form-control" placeholder="Enter your tag here...">
           </div>
           <button type="submit" class="btn btn-primary">Search</button>
-        </form>
+        </form>        
+      </li>
+      <li>
+        <button onclick="window.location.href='/'" class="btn btn-primary">View All Categories</button>
       </li>
       <li>
         <% if session[:access_token] == nil %>
@@ -40,6 +28,28 @@
   </div>
 </div> <!-- mastheadflix -->
 
+<% client = Instagram.client(:access_token => session[:access_token]) %>
+
+<!-- Beat a tag instructions -->
+<div class="container">
+  <% if session[:beatit] == true %>
+  <div class="alert alert-danger alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">X</span>
+    </button>
+    <h4>How to beat an image</h4>
+    <p>To beat an image you see on the site, just follow the steps below:</p>
+    <ul>
+      <li>Take a photo using the Instagram app or website</li>
+      <li>Tag you photo with #beatit_category; where the category is the one you'd like to compete in</li>
+      <li>An image can compete in multiple categories</li>
+      <li>Get as many likes as you can on the image and check back here to see your ranking!</li>
+    </ul>
+  </div>
+  <% session[:beatit] = false %>
+  <% end %>
+</div>
+
 <!-- User dashboard -->
 <div class="container"
   <% if session[:access_token] != nil %>
@@ -48,8 +58,11 @@
     <div class="panel-heading">
       <h4 class="panel-title">
       <a data-toggle="collapse" data-target="#collapse" href="#collapse">
-        <% client = Instagram.client(:access_token => session[:access_token]) %>
-        <%= client.user.username %>'s Profile
+        <%= if client.user.full_name.empty?
+            client.user.username
+          else
+            client.user.full_name
+          end %>'s Profile
       </a>
       </h4>
     </div>
@@ -64,12 +77,12 @@
             <% media_item.tags.each do |tag| %>
               <% if tag =~ /^beatit_[a-z]+/ %>
                 <div>
-                  <strong><%= "#{tag} " %></strong>
+                  <strong><%= tag %></strong>
                 </div>
               <% end %>
             <% end %>
           <% end %>
-        </div>
+        </div> 
       </div>
     </div>
   </div>
@@ -77,51 +90,35 @@
   <% end %>
 </div>
 
-<!-- Beat a tag instructions -->
-<div class="container">
-  <% if session[:user_beatit] != nil %>
-  <div class="alert alert-danger alert-dismissible fade in" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">X</span>
-    </button>
-    <h4>How to beat an image</h4>
-    <p>To beat an image you see on the site, just follow the steps below:</p>
-    <ul>
-      <li>Take a photo using the Instagram app or website</li>
-      <li>Tag you photo with #beatit_category; where the category is the one you'd like to compete in</li>
-      <li>An image can compete in multiple categories</li>
-      <li>Get as many likes as you can on the image and check back here to see your ranking!</li>
-    </ul>
-  </div>
-  <% end %>
-</div>
+
 
 <!-- Winning images -->
 <div class ="container">
   <p class = "heading imghuge">My Winning Images</p>
   <div class = "row"><!-- #large category images -->
     <% client = Instagram.client(:access_token => session[:access_token]) %>
-    <% winning_pictures = user.get_user_winning_pictures(client) %>
+    <% winning_pictures = User.get_user_winning_pictures(client) %>
     <% if not winning_pictures %>
       <div class="col-xs-8 col-sm-8 col-md-8">
         <h3 class ="lightheading imgbig">You have no winning pictures. Try harder!</h3>
       </div>
     <% else %>
-    <% for i in 0..3 %>
+    <% winning_pictures.each do |picture| %>
       <div class="col-xs-3 col-sm-3 col-md-3">
         <div class = "thumbnail" >
-          <a href = "/category" >
-          <img class="img-responsive" src="<%= winning_pictures[i].standard_resolution_url%>">
+          <a href = "/category/<%= picture.category %>" >
+          <img class="img-responsive" src="<%= picture.standard_resolution_url %>" alt="Card image cap">
           <div class="caption" id="caption-half-up">
             <p>
-              #<%= winning_pictures[i].category%>
-              likes <%=winning_pictures[i].likes["count"]%>
+              #<%= picture.category%>
+              <br>
+              likes <%=picture.likes["count"]%>
             </p>
           </div>
           </a>
         </div>
       </div> <!-- col-xs-12 col-sm-6 -->
-    <% end %>
+      <% end %>
     <% end %>
   </div>
 </div>
@@ -134,11 +131,12 @@
     <% pictures.each do |picture| %>
     <div class="col-xs-3 col-sm-3 col-md-3">
       <div class = "thumbnail" >
-      <a href = "/category" >
+       <a href = "/category/<%= picture.category %>" >
       <img class="img-responsive" src="<%= picture.standard_resolution_url %>">
       <div class="caption" id="caption-half-up">
         <p>
           #<%= picture.category%>
+          <br>
           likes <%=picture.likes["count"]%>
         </p>
       </div>

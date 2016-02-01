@@ -7,12 +7,17 @@
         <a href = "/"><img class="logo" src = "/images/logo.png"></a>        
       </li>
       <li>
-        <form class="navbar-form" role="search">
+       <form method="post" action="/search" class="navbar-form" role="search">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Enter your tag here...">
+            <input name = "category" type="text" class="form-control" placeholder="Enter your tag here...">
           </div>
           <button type="submit" class="btn btn-primary">Search</button>
-        </form>
+        </form>        
+      </li>
+      <li>
+        <button onclick="window.location.href='/user'" class="btn btn-primary">
+          <b>My Profile</b>
+        </button>
       </li>  
       <li>
         <% if session[:access_token] == nil %>
