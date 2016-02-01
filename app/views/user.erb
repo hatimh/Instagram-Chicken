@@ -1,0 +1,149 @@
+<!-- image with hover captions -->
+<% @image =
+    '<div class = "thumbnail" >
+        <a href = "/category" >
+          <img class="img-responsive" src="http://lorempixel.com/360/360/" alt="Card image cap">
+        <div class="caption" id="caption-half-up">
+          <p>
+            #Beatit_tag
+          </p>
+        </div>
+          <div class="caption" id="caption-half-down">
+        </div>
+        </a>
+     </div>' %>
+
+<!-- Navbar -->
+<div class="masthead clearfix">
+  <div class="container">
+    <ul class = "nav nav-justified" >
+      <!-- logo -->
+      <li>
+        <h1 class="logo">PikzArena</h1>
+      </li>
+      <li>
+        <form class="navbar-form" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Enter your tag here...">
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </li>
+      <li>
+        <% if session[:access_token] == nil %>
+          <button onclick="window.location.href='oauth/connect'" class="btn btn-primary"><b>Connect with Instagram</b></button>
+        <% else %>
+          <button onclick="window.location.href='oauth/disconnect'" class="btn btn-primary"  ><b>Log Out</b></button>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div> <!-- mastheadflix -->
+
+<!-- User dashboard -->
+<div class="container"
+  <% if session[:access_token] != nil %>
+  <div class="panel-group" id="accordion">
+  <div class="panel panel-default" id="panel1">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-target="#collapse" href="#collapse">
+        <%= @client.user.username %>'s Profile
+      </a>
+      </h4>
+    </div>
+    <div id="collapse" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <img class="pull-right" src='<%= @client.user.profile_picture %>' />
+        <div class="pull-left">
+          <% client = Instagram.client(:access_token => session[:access_token]) %>
+          <% user = client.user %>
+          <h3><%= "#{user.username} is competing in:" %></h3>
+          <% for media_item in client.user_recent_media %>
+            <% media_item.tags.each do |tag| %>
+              <% if tag =~ /^beatit_[a-z]+/ %>
+                <div>
+                  <strong><%= "#{tag} " %></strong>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <% end %>
+</div>
+
+<!-- Beat a tag instructions -->
+<div class="container">
+  <% if session[:user_beatit] != nil %>
+  <div class="alert alert-danger alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">X</span>
+    </button>
+    <h4>How to beat an image</h4>
+    <p>To beat an image you see on the site, just follow the steps below:</p>
+    <ul>
+      <li>Take a photo using the Instagram app or website</li>
+      <li>Tag you photo with #beatit_category; where the category is the one you'd like to compete in</li>
+      <li>An image can compete in multiple categories</li>
+      <li>Get as many likes as you can on the image and check back here to see your ranking!</li>
+    </ul>
+  </div>
+  <% end %>
+</div>
+
+<!-- Winning images -->
+<div class ="container">
+  <h3>My Winning Images</h3>
+  <div class = "row"><!-- #large category images -->
+    <% client = Instagram.client(:access_token => session[:access_token]) %>
+    <% winning_pictures = user.get_user_winning_pictures(client) %>
+    <% if not winning_pictures %>
+      <div class="col-xs-8 col-sm-8 col-md-8">
+        <h3>You have no winning pictures. Try harder!</h3>
+      </div>
+    <% else %>
+    <% for i in 0..3 %>
+      <div class="col-xs-3 col-sm-3 col-md-3">
+        <div class = "thumbnail" >
+          <a href = "/category" >
+          <img class="img-responsive" src="<%= winning_pictures[i].standard_resolution_url%>" alt="Card image cap">
+          <div class="caption" id="caption-half-up">
+            <p>
+              #<%= winning_pictures[i].category%>
+              likes <%=winning_pictures[i].likes["count"]%>
+            </p>
+          </div>
+          </a>
+        </div>
+      </div> <!-- col-xs-12 col-sm-6 -->
+    <% end %>
+    <% end %>
+  </div>
+</div>
+
+<!-- My Images -->
+<div class="container">
+  <h3>My Competing Images</h3>
+  <div class="row">
+    <% pictures = User.get_user_competing_pictures(@client) %>
+    <% pictures.each do |picture| %>
+    <div class="col-xs-3 col-sm-3 col-md-3">
+      <div class = "thumbnail" >
+      <a href = "/category" >
+      <img class="img-responsive" src="<%= picture.standard_resolution_url %>" alt="Card image cap">
+      <div class="caption" id="caption-half-up">
+        <p>
+          #<%= picture.category%>
+          likes <%=picture.likes["count"]%>
+        </p>
+      </div>
+      </a>
+      </div>
+    </div> <!-- col-xs-12 col-sm-6 -->
+    <% end %>
+  </div>
+</div>

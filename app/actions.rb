@@ -27,20 +27,20 @@ end
 
 # get methods #
 get '/' do
-  # @client = Instagram.client(:access_token => session[:access_token])
+  @client = Instagram.client(:access_token => session[:access_token])
   if session[:access_token] == nil
     erb :'/login'
   else
-    erb :index
+    erb :'/user'
   end
 end
 
 # Login page
 get '/login' do
   if session[:access_token] == nil
-    erb :'login'
+    erb :'/login'
   else
-    erb :'user'
+    erb :'/user'
   end
 end
 
