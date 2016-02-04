@@ -5,17 +5,9 @@ enable :sessions
 
 CALLBACK_URL = "http://localhost:3000/oauth/callback"
 
-# Hatim's instagram key
-# Instagram.configure do |config|
-#   config.client_id = "233b809cbca8494b85743f13d81fa9b5"
-#   config.client_secret = "87249927d0b04a03af10f7ad0d048075"
-#   # For secured endpoints only
-#   #config.client_ips = '<Comma separated list of IPs>'
-# end
-
 Instagram.configure do |config|
-  config.client_id = "4a9c8bcaff1b4b03901e20bb5777d8bd"
-  config.client_secret = "1b574823e66d41dbbbb2a84b18646ddd"
+  config.client_id = "7b2f272779ce4767a882aa3aef445645"
+  config.client_secret = "a8af048a841a4da59cb3ebc7742ce0d1"
   config.scope = "public_content likes"
 end
 
