@@ -7,10 +7,10 @@ configure do
   set :database, {
 
     adapter: "postgresql",
-    host: "ec2-107-20-242-191.compute-1.amazonaws.com",
-    username: "beuzjgvfqgopaz",
-    password: "IXTxJJdDg1LWcU5h05qnCHx4-D",
-    database: "de65h6q9p2eept"
+    host: "ec2-54-83-0-187.compute-1.amazonaws.com",
+    username: "hdadxjxzctdlbz",
+    password: "gPEnq-VKQg66m8_glx3cdjSarJ",
+    database: "d20pilaqpgmg7o"
   }
 
   # Load all models from app/models, using autoload instead of require
